@@ -78,7 +78,7 @@ Le projet est divisé en deux parties principales :
    ```
 2. Configurez les variables d'environnement dans le fichier `src/environments/environment.ts` :
    ```typescript
-   // filepath: /home/raiga/repo_epitech/event/client/src/environments/environment.ts
+   // ./client/src/environments/environment.ts
    export const environment = {
      production: false,
      apiUrl: 'http://localhost:3001',
