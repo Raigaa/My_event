@@ -1,0 +1,81 @@
+<p class="text-2xl font-bold mb-6 text-gray-800 md:text-3xl lg:text-4xl text-center">
+    Menu
+</p>
+
+<!-- Utiliser la géolocalisation -->
+<div class="flex flex-col md:flex-row items-center mt-6 space-y-4 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md">
+    <input type="checkbox" id="useLocation" [checked]="isLocationEnabled" (change)="onLocationCheckboxChange($event)"
+        class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-400 transition duration-150 ease-in-out">
+    <label for="useLocation" class="text-base font-medium text-gray-800">Utiliser la localisation</label>
+</div>
+
+<!-- Si géolocalisation activée -->
+<div *ngIf="isLocationEnabled" class="flex flex-col items-start space-y-4 mt-6 bg-gray-100 p-4 rounded-lg shadow-md">
+    <label for="distance" class="text-base font-medium text-gray-800">Distance :</label>
+    <input type="range" id="distance" name="distance" min="5" max="50" step="5" [value]="radius"
+        (input)="onRadiusChange($event)"
+        class="w-full h-2 bg-gray-300 rounded-lg appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+    <div class="flex items-center justify-between w-full text-gray-800 text-base font-medium mt-2">
+        <span>{{ radius }}</span> km
+    </div>
+</div>
+
+<!-- Masquer les événements passés -->
+<div class="flex flex-col md:flex-row items-center mt-6 space-y-4 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md">
+    <input type="checkbox" id="hideEventDone" [checked]="hideEventDone" (change)="onHideEventDoneChange($event)"
+        class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-400 transition duration-150 ease-in-out">
+    <label for="hideEventDone" class="text-base font-medium text-gray-800">Masquer les événements terminés</label>
+</div>
+
+<!-- Activer la plage d'âge -->
+<div class="flex flex-col md:flex-row items-center mt-6 space-y-4 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md">
+    <input type="checkbox" id="ageRanged" [checked]="isAgeRangedEnabled" (change)="onAgeRangedCheckboxChange($event)"
+        class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-400 transition duration-150 ease-in-out">
+    <label for="ageRanged" class="text-base font-medium text-gray-800">Activer la plage d'âge</label>
+</div>
+
+<!-- Slider d'âge -->
+<div *ngIf="isAgeRangedEnabled" class="flex flex-col items-start space-y-6 mt-8 bg-gray-100 p-4 rounded-lg shadow-md">
+    <div class="w-full md:w-11/12 lg:w-4/5">
+        <label class="text-base font-medium text-gray-800">Âge minimum :</label>
+        <ngx-slider [value]="ageRangeMin" [options]="ageSliderOptions" (valueChange)="onAgeRangeMinChange($event)"
+            class="w-full custom-slider mt-2">
+        </ngx-slider>
+        <div class="flex items-center justify-between w-full text-gray-800 text-base font-medium mt-2">
+            <span>{{ ageRangeMin }} ans</span>
+        </div>
+    </div>
+
+    <div class="w-full md:w-11/12 lg:w-4/5">
+        <label class="text-base font-medium text-gray-800">Âge maximum :</label>
+        <ngx-slider [value]="ageRangeMax" [options]="ageSliderOptions" (valueChange)="onAgeRangeMaxChange($event)"
+            class="w-full custom-slider mt-2">
+        </ngx-slider>
+        <div class="flex items-center justify-between w-full text-gray-800 text-base font-medium mt-2">
+            <span>{{ ageRangeMax }} ans</span>
+        </div>
+    </div>
+
+    <!-- Ignorer âge minimum -->
+    <div class="flex flex-col md:flex-row items-center mt-4 space-y-4 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md">
+        <input type="checkbox" id="ignoreMinAge" [checked]="ignoreMinAge" (change)="onIgnoreMinAgeChange($event)"
+            class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-400 transition duration-150 ease-in-out">
+        <label for="ignoreMinAge" class="text-base font-medium text-gray-800">Ignorer l'âge minimum</label>
+    </div>
+
+    <!-- Ignorer âge maximum -->
+    <div class="flex flex-col md:flex-row items-center mt-4 space-y-4 md:space-y-0 md:space-x-4 bg-white p-4 rounded-lg shadow-md">
+        <input type="checkbox" id="ignoreMaxAge" [checked]="ignoreMaxAge" (change)="onIgnoreMaxAgeChange($event)"
+            class="form-checkbox h-6 w-6 text-blue-600 rounded focus:ring-blue-400 transition duration-150 ease-in-out">
+        <label for="ignoreMaxAge" class="text-base font-medium text-gray-800">Ignorer l'âge maximum</label>
+    </div>
+</div>
+
+<!-- Sélection de pays -->
+<div class="mt-6 bg-white p-4 rounded-lg shadow-md">
+    <label for="country" class="text-base font-medium text-gray-800">Sélectionnez un pays :</label>
+    <select (change)="onCountryChange($event)" class="mt-2 w-full p-2 border border-gray-300 rounded-md bg-white text-gray-800 focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+        <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+        <option value="all">Tous les pays</option>
+    </select>
+</div>

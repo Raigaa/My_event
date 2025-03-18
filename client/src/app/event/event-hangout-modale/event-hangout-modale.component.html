@@ -1,0 +1,79 @@
+<div
+  class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center transition-opacity duration-300 ease-in-out"
+>
+  <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl relative animate-fade-in">
+    <h2 class="text-3xl font-bold text-gray-700 mb-6">
+      Organiser une sortie: {{ title_fr }}
+    </h2>
+    <div class="mb-4">
+      <h1 class="text-lg font-semibold text-gray-600">Le : {{ daterange_fr }}</h1>
+      <p class="text-lg text-gray-600">À : {{ location_address }}</p>
+    </div>
+    <p class="mb-6 text-gray-500">Remplis les informations pour organiser ta sortie ici...</p>
+
+    <!-- Sélecteur de visibilité -->
+    <div class="mb-6">
+      <label for="visibility" class="block text-lg font-medium text-gray-700 mb-2"
+        >Visibilité :</label
+      >
+      <select
+        id="visibility"
+        class="block w-full p-3 border border-gray-300 rounded-lg focus:ring focus:ring-yellow-300"
+        [(ngModel)]="visibility"
+      >
+        <option value="public">Public</option>
+        <option value="private">Private</option>
+      </select>
+    </div>
+
+    <!-- Sélecteur d'utilisateurs -->
+    <div class="mb-6">
+      <label for="user-select" class="block text-lg font-medium mb-2">Utilisateurs :</label>
+      <select
+        id="user-select"
+        class="block w-full p-2 border rounded"
+        [(ngModel)]="selectedUser"
+        (change)="onUserSelect()"
+      >
+        <option value="" disabled>Sélectionnez un utilisateur</option>
+        <option *ngFor="let user of filteredUsers" [value]="user._id">
+          {{ user.name }} ({{ user.email }})
+        </option>
+      </select>
+    </div>
+
+    <!-- Utilisateurs sélectionnés -->
+    <div class="mb-6">
+      <label class="block text-lg font-medium text-gray-700 mb-2"
+        >Utilisateurs sélectionnés :</label
+      >
+      <ul class="space-y-2">
+        <li *ngFor="let user of selectedUsers" class="flex justify-between items-center">
+          <span>{{ user.name }} ({{ user.email }})</span>
+          <button
+            (click)="removeUser(user._id)"
+            class="ml-2 text-red-600 hover:text-red-800 transition-colors"
+          >
+            Supprimer
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Boutons -->
+    <div class="flex justify-between mt-8">
+      <button
+        class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+        (click)="closeModale()"
+      >
+        Fermer
+      </button>
+      <button
+        class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition"
+        (click)="validateModale()"
+      >
+        Valider
+      </button>
+    </div>
+  </div>
+</div>

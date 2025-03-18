@@ -1,0 +1,13 @@
+<div class="w-screen bg-orange-300 h-24 flex items-center md:fixed md:top-0 md:left-0 md:right-0 md:z-30 justify-between px-12">
+    <a [routerLink]="['/home']" class="h-full flex items-center">
+        <img class="brand-logo h-2/5" src="/my_event_logo.png" alt="Logo Myevent" aria-hidden="true" />
+    </a>
+    <div class="flex items-center space-x-6">
+        <a [routerLink]="['/hangouts']" class="text-2xl font-bold text-black mr-10">
+            Hangouts
+        </a>
+    </div>
+    <a [routerLink]="['/auth']">
+        <fa-icon [icon]="faUser" class="fa-2x"></fa-icon>
+    </a>
+</div>
